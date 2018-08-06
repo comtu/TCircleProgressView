@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TCircleProgressView">
+        <!-- 圆弧宽度 -->
+        <attr name="tcpv_border_width" format="dimension"/>
+        <!-- 圆弧开始角度 -->
+        <attr name="tcpv_start_angle" format="integer"/>
+        <!-- 圆弧空白角度 -->
+        <attr name="tcpv_blank_angle" format="integer"/>
+        <!-- 动画持续时间 单位秒 -->
+        <attr name="tcpv_animation_duration" format="integer"/>
+        <!-- 总进度 -->
+        <attr name="tcpv_total_progress" format="integer"/>
+        <!-- 背景色 -->
+        <attr name="tcpv_background_color" format="color"/>
+        <!-- 圆弧背景色 -->
+        <attr name="tcpv_arc_background_color" format="color"/>
+
+        <!-- 进度圆弧开始色 -->
+        <attr name="tcpv_arc_start_color" format="color"/>
+        <!-- 进度圆弧结束色 -->
+        <attr name="tcpv_arc_end_color" format="color"/>
+
+        <!-- 半圆背景色 -->
+        <attr name="tcpv_hint_background_color" format="color"/>
+        <!-- 字体颜色 -->
+        <attr name="tcpv_hint_text_color" format="color"/>
+        <!-- 字体大小 -->
+        <attr name="tcpv_hint_text_size" format="dimension"/>
+        <!-- 文字 -->
+        <attr name="tcpv_hint_text" format="string"/>
+        <!-- 是否显示半圆 -->
+        <attr name="tcpv_hint_show" format="boolean"/>
+        <!-- 半圆覆盖比率 0.1 - 1 -->
+        <attr name="tcpv_hint_semicircle_rate" format="float"/>
+
+    </declare-styleable>
+</resources>
