@@ -42,7 +42,8 @@
 
   ```
 	dependencies {
-	        compile 'com.github.comtu:TCircleProgressView:v1.0.0'
+	        //compile 'com.github.comtu:TCircleProgressView:v1.0.1'
+		implementation 'com.github.comtu:TCircleProgressView:v1.0.1'
 	}
   ```
 
