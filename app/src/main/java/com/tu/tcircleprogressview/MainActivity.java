@@ -1,5 +1,6 @@
 package com.tu.tcircleprogressview;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -59,11 +60,19 @@ public class MainActivity extends AppCompatActivity {
         mTCPV_Demo_7.setArcBackgroundColor(Color.parseColor("#000000"));//设置圆弧背景色
         mTCPV_Demo_7.setHintBackgroundColor(Color.parseColor("#5500FF00"));//设置圆弧背景色
         mTCPV_Demo_7.setHintTextColor(Color.parseColor("#ff0000"));//设置文字颜色
+        mTCPV_Demo_7.setTextPadding(8);//设置文字距离顶部的偏移量
         mTCPV_Demo_7.setIsShowHint(true);//显示半圆与文字
         mTCPV_Demo_7.setSemicircleRate(0.5f);//半圆覆盖比率
+        mTCPV_Demo_7.setOnProgressListener(new TCircleProgressView.OnProgressListener() {//动画进度监听器
+            @Override
+            public void onProgressChanged(float progress) {
+                mTCPV_Demo_7.setText("进度:" + progress);
+                mTCPV_Demo_7.setIsShowHint(progress > 30);
+            }
+        });
 
-
-        findViewById(R.id.but).setOnClickListener(new View.OnClickListener() {
+        View v = findViewById(R.id.but);
+        v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!isShowAnimation) {
@@ -84,6 +93,14 @@ public class MainActivity extends AppCompatActivity {
                     mTCPV_Demo_7.setProgress(0);
                 }
                 isShowAnimation = !isShowAnimation;
+            }
+        });
+
+        v.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                startActivity(new Intent(MainActivity.this,CameraActivity.class));
+                return false;
             }
         });
 

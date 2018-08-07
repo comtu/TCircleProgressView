@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/but"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="识别开始"/>
+
+    <TextView
+        android:id="@+id/tv_progress"
+        android:text="进度:"
+        android:layout_toRightOf="@+id/but"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <SurfaceView
+        android:id="@+id/sv_camera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/but"/>
+
+    <com.tu.tcircleprogresslibrary.TCircleProgressView
+        android:id="@+id/tcpv_dam_board"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@+id/but"
+        app:tcpv_animation_duration="1"
+        app:tcpv_blank_angle="45"
+        app:tcpv_border_width="5dp"
+        app:tcpv_hint_semicircle_rate="0.3"
+        app:tcpv_hint_show="false"
+        app:tcpv_hint_text_color="#ffffff"
+        app:tcpv_hint_text_padding="8dp"
+        app:tcpv_start_angle="90"
+        app:tcpv_total_progress="100"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tcpv_dam_board"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:text="人脸识别"/>
+</RelativeLayout>

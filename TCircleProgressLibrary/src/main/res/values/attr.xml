@@ -27,6 +27,8 @@
         <attr name="tcpv_hint_text_color" format="color"/>
         <!-- 字体大小 -->
         <attr name="tcpv_hint_text_size" format="dimension"/>
+        <!-- 文字偏移量 -->
+        <attr name="tcpv_hint_text_padding" format="dimension"/>
         <!-- 文字 -->
         <attr name="tcpv_hint_text" format="string"/>
         <!-- 是否显示半圆 -->

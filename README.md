@@ -1,8 +1,13 @@
+
+[![Release](https://jitpack.io/v/comtu/TCircleProgressView.svg)](https://jitpack.io/#comtu/TCircleProgressView)
+
+
 # TCircleProgressView
 一个圆型进度条 仿支付宝人脸识别进度条 progressbar
 
 # 效果
 ![](./show.gif)
+![](./show2.gif)
 
 
 ## 支持属性
@@ -10,11 +15,11 @@
 
 |         属性名          |                 属性说明           |     类型       |
 | :------------------: | :-------------------------------: |:--------------:|
-| tcpv_border_width  |           圆弧宽度        | dimension        |
-|  tcpv_start_angle  |              圆弧开始角度              | integer        |
-|  tcpv_blank_angle   |       圆弧空白角度                |   integer      |
-|  tcpv_animation_duration   |               动画持续时间 单位秒            |   integer      |
-|  tcpv_total_progress   |               总进度 |   integer    |
+|tcpv_border_width  |           圆弧宽度        | dimension        |
+|tcpv_start_angle  |            圆弧开始角度              | integer        |
+|tcpv_blank_angle   |       圆弧空白角度                |   integer      |
+|tcpv_animation_duration   |               动画持续时间 单位秒            |   integer      |
+|tcpv_total_progress   |               总进度 |   integer    |
 |tcpv_background_color| 背景色                   | color     |
 |tcpv_arc_background_color  |           圆弧背景色                      |color    |
 |tcpv_arc_start_color |      进度圆弧开始色                   |color    |
@@ -22,6 +27,7 @@
 |tcpv_hint_background_color   |       半圆背景色                        |color   |
 |tcpv_hint_text_color      |       字体颜色                     |color   |
 |tcpv_hint_text_size      |       字体大小                     |dimension   |
+|tcpv_hint_text_padding      |       文字距离顶部的偏移量                     |dimension   |
 |tcpv_hint_text      |       文字                     |string   |
 |tcpv_hint_show      |       是否显示半圆                     |boolean   |
 |tcpv_hint_semicircle_rate      |       半圆覆盖比率 0.1f - 1f                     |float   |
@@ -42,8 +48,8 @@
 
   ```
 	dependencies {
-	        //compile 'com.github.comtu:TCircleProgressView:v1.0.1'
-		implementation 'com.github.comtu:TCircleProgressView:v1.0.1'
+	        //compile 'com.github.comtu:TCircleProgressView:v1.0.2'
+		implementation 'com.github.comtu:TCircleProgressView:v1.0.2'
 	}
   ```
 
@@ -69,6 +75,7 @@
             app:tcpv_hint_text="1xml配置"
             app:tcpv_hint_text_color="#ffffff"
             app:tcpv_hint_text_size="10dp"
+        	app:tcpv_hint_text_padding="8dp"
             app:tcpv_start_angle="90"
             app:tcpv_total_progress="100"/>
 
@@ -100,9 +107,16 @@ mTCPV_Demo_7.setBackgroundColor(Color.parseColor("#0000ff"));//设置背景色
 mTCPV_Demo_7.setArcBackgroundColor(Color.parseColor("#000000"));//设置圆弧背景色
 mTCPV_Demo_7.setHintBackgroundColor(Color.parseColor("#5500FF00"));//设置圆弧背景色
 mTCPV_Demo_7.setHintTextColor(Color.parseColor("#ff0000"));//设置文字颜色
+mTCPV_Demo_7.setTextPadding(8);//设置文字距离顶部的偏移量
 mTCPV_Demo_7.setIsShowHint(true);//显示半圆与文字
 mTCPV_Demo_7.setSemicircleRate(0.5f);//半圆覆盖比率
-
+mTCPV_Demo_7.setOnProgressListener(new TCircleProgressView.OnProgressListener() { //动画进度
+    @Override
+    public void onProgressChanged(float progress) {
+	mTCPV_Demo_7.setText("进度:" + progress);
+	mTCPV_Demo_7.setIsShowHint(progress > 30);
+    }
+});
 ```
 
 ## License

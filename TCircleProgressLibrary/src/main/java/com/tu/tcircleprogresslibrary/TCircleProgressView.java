@@ -92,6 +92,8 @@ public class TCircleProgressView extends View {
     private float mHintTextSize = -1;
     /*** 文字 */
     private String mHintText = "";
+    /*** 字距离顶部的偏移量*/
+    private float mTextPadding = 0;
 
     //全透明圆
     /*** 透明区域圆x轴位置 */
@@ -100,6 +102,8 @@ public class TCircleProgressView extends View {
     private float mTransparentCircleCY;
     /*** 透明区域圆半径 */
     private float mTransparentCircleRadius;
+    /*** 进度监听器 */
+    private OnProgressListener mOnProgressListener;
 
     // ===========================================================
     // Constructors
@@ -188,7 +192,7 @@ public class TCircleProgressView extends View {
      *
      * @param backgroundColor 颜色值
      */
-    public void setBackgroundColor( int backgroundColor) {
+    public void setBackgroundColor(int backgroundColor) {
         this.mBackgroundColor = backgroundColor;
     }
 
@@ -197,7 +201,7 @@ public class TCircleProgressView extends View {
      *
      * @param arcBackgroundColor 颜色值
      */
-    public void setArcBackgroundColor( int arcBackgroundColor) {
+    public void setArcBackgroundColor(int arcBackgroundColor) {
         this.mArcBackgroundColor = arcBackgroundColor;
     }
 
@@ -232,7 +236,7 @@ public class TCircleProgressView extends View {
      *
      * @param mHintTextColor
      */
-    public void setHintTextColor( int mHintTextColor) {
+    public void setHintTextColor(int mHintTextColor) {
         this.mHintTextColor = mHintTextColor;
     }
 
@@ -253,6 +257,24 @@ public class TCircleProgressView extends View {
      */
     public void setSemicircleRate(float mSemicircleRate) {
         this.mHintSemicircleRate = mSemicircleRate;
+    }
+
+    /**
+     * 设置文字距离顶部的偏移量
+     *
+     * @param mTextPadding 偏移量
+     */
+    public void setTextPadding(float mTextPadding) {
+        this.mTextPadding = dipToPx(mTextPadding);
+    }
+
+    /**
+     * 设置进度监听器
+     *
+     * @param mOnProgressListener l
+     */
+    public void setOnProgressListener(OnProgressListener mOnProgressListener) {
+        this.mOnProgressListener = mOnProgressListener;
     }
 
     // ===========================================================
@@ -293,7 +315,7 @@ public class TCircleProgressView extends View {
             blankAngle = typedArray.getInt(R.styleable.TCircleProgressView_tcpv_blank_angle, 30);// 圆弧空白角度
             mTotalProgress = typedArray.getInt(R.styleable.TCircleProgressView_tcpv_total_progress, 100);// 总进度
             mAnimationDuration = typedArray.getInt(R.styleable.TCircleProgressView_tcpv_animation_duration, 3) * 1000L;// 单位秒 动画持续时间
-            mHintSemicircleRate = typedArray.getFloat(R.styleable.TCircleProgressView_tcpv_hint_semicircle_rate, 0.3f) ;// 半圆覆盖比率 0.1f - 1f
+            mHintSemicircleRate = typedArray.getFloat(R.styleable.TCircleProgressView_tcpv_hint_semicircle_rate, 0.3f);// 半圆覆盖比率 0.1f - 1f
 
             mBackgroundColor = typedArray.getColor(R.styleable.TCircleProgressView_tcpv_background_color, Color.WHITE);//背景颜色
             mArcBackgroundColor = typedArray.getColor(R.styleable.TCircleProgressView_tcpv_arc_background_color, Color.parseColor("#cccccc"));//圆弧背景颜色
@@ -309,6 +331,7 @@ public class TCircleProgressView extends View {
                 mGradualColors = new int[]{color, color};
             }
             mHintTextSize = typedArray.getDimension(R.styleable.TCircleProgressView_tcpv_hint_text_size, -1f);//字体大小
+            mTextPadding = typedArray.getDimension(R.styleable.TCircleProgressView_tcpv_hint_text_padding, 0);//字体大小
             mHintText = typedArray.getString(R.styleable.TCircleProgressView_tcpv_hint_text);//文字
             mIsShowHint = typedArray.getBoolean(R.styleable.TCircleProgressView_tcpv_hint_show, false);//是否显示hint
 
@@ -413,7 +436,7 @@ public class TCircleProgressView extends View {
         vTextPaint.setColor(mHintTextColor);
         Rect bounds_Number = new Rect();
         vTextPaint.getTextBounds(mHintText, 0, mHintText.length(), bounds_Number);
-        canvas.drawText(mHintText, mTransparentCircleCX, (mHintRectFSemicircle.bottom * 0.05f) + bounds_Number.height() + mHintRectFSemicircle.top, vTextPaint);
+        canvas.drawText(mHintText, mTransparentCircleCX, (mHintRectFSemicircle.bottom * 0.05f) + bounds_Number.height() + mHintRectFSemicircle.top + mTextPadding, vTextPaint);
     }
 
     /**
@@ -530,6 +553,9 @@ public class TCircleProgressView extends View {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 mCurrentAngleLength = (float) animation.getAnimatedValue();
+                if (mOnProgressListener != null) {
+                    mOnProgressListener.onProgressChanged(mCurrentAngleLength / mAngleLength * mTotalProgress);
+                }
                 invalidate();
             }
         });
@@ -552,5 +578,15 @@ public class TCircleProgressView extends View {
     // Inner and Anonymous Classes
     // ===========================================================
 
+    /***
+     * 动画进度监听器
+     */
+    public interface OnProgressListener {
+        /***
+         * 动画执行到的进度
+         * @param progress 进度
+         */
+        void onProgressChanged(float progress);
+    }
 
 }
